@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 const MIN_PASS_LENGTH = 8;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
+// То, что возвращает signupAction
 export type SignupState = { error?: string };
 
 // <<<<<<<<<<<<<<<<<<Функция, которая вызывается при отправке формы в DB>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -19,7 +20,7 @@ export async function signupAction(
   const email = formData.get("email") as string | undefined;
   const password = formData.get("password") as string | undefined;
 
-  // Guard Clauses
+  // Guard expression
   if (!name) {
     return { error: "Введите имя" };
   }

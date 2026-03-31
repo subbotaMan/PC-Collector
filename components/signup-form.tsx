@@ -60,7 +60,13 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
             <Field>
               <FieldLabel htmlFor="password">Пароль</FieldLabel>
               {/* Password Field */}
-              <Input id="password" name="password" type="password" required />
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Не менее 8 символов"
+                required
+              />
             </Field>
             {/* Error Field */}
             {state?.error && <ErrorMessage message={state.error} />}
