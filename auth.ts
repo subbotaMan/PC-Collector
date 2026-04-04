@@ -5,6 +5,9 @@ import bcrypt from "bcryptjs";
 
 // <<<<<<<<<Настройка Next Auth>>>>>>>>>
 export const { auth, signIn, signOut, handlers } = NextAuth({
+  trustHost: true,
+  secret: process.env.NEXTAUTH_SECRET,
+
   providers: [
     // providers. Кто может войти. Только через логин и пароль.
     Credentials({
@@ -87,8 +90,8 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     // Данные о себе, которые видит пользователь.
     session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id;
-        session.user.email = token.email;
+        session.user.id = token.id as string;
+        session.user.email = token.email as string;
         session.user.name = token.name;
       }
 

@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
 
 // То, что возвращает loginAction.
 export type LoginState = { error?: string };
@@ -20,7 +21,7 @@ export async function loginAction(
 
   try {
     // Вызов функции authorize(проверка личности) из @auth.ts.
-    await signIn("credentional", {
+    await signIn("credentials", {
       email,
       password,
       redirectTo: "/dashboard",
@@ -28,6 +29,15 @@ export async function loginAction(
 
     redirect("/dashboard");
   } catch (error) {
-    return { error: "Неверный email или пароль" };
+    if (error instanceof AuthError) {
+      if (error.type === "CredentialsSignin") {
+        console.log(error);
+        return { error: "Неверный email или пароль" };
+      }
+
+      return { error: "Ошибка авторизации" };
+    }
+
+    throw error;
   }
 }
