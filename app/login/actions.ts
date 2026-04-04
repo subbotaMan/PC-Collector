@@ -29,6 +29,7 @@ export async function loginAction(
 
     redirect("/dashboard");
   } catch (error) {
+    // Дополнительная проверка для next-auth v 5.0...
     if (error instanceof AuthError) {
       if (error.type === "CredentialsSignin") {
         console.log(error);
