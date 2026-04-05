@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // Утилита для определения табов.
-type TabValueType = "dashboard" | "explore" | "builds" | null;
+type TabValueType = "dashboard" | "explore" | "builds" | undefined;
 
 export function getTabValue(pathname: string): TabValueType {
   if (pathname === "/dashboard" || pathname.startsWith("/dashboard/"))
@@ -18,5 +18,5 @@ export function getTabValue(pathname: string): TabValueType {
 
   if (pathname === "/builds" || pathname.startsWith("/builds")) return "builds";
 
-  return null;
+  return;
 }
