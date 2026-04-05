@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useActionState } from "react";
 import { loginAction, LoginState } from "@/app/login/actions";
-import { ErrorMessage } from "./error-message";
+import { ErrorMessage } from "../error-message";
 
 export function LoginForm({
   className,

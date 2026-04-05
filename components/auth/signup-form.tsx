@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useActionState } from "react";
 import { signupAction, SignupState } from "@/app/signup/actions";
-import { ErrorMessage } from "./error-message";
+import { ErrorMessage } from "../error-message";
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
   // state - данные ({error: ...}) из signupAction.  formAction - функция, которая запускает signupAction с данными формы. isPending - true во время выполнения signupAction, иначе false (!!!потенциально можно прикрутить крутилку во время выполнения action).

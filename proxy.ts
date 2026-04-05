@@ -12,6 +12,8 @@ function isPublicPath(pathName: string) {
 }
 
 export function proxy(request: NextRequest) {
+  console.log("Попадаю в прокси");
+
   // Получаю url.
   const { pathname } = request.nextUrl;
 
