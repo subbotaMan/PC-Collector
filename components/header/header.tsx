@@ -1,3 +1,5 @@
+"use server";
+
 import Link from "next/link";
 import { TypographyH3 } from "../ui/typography-h3";
 import { auth } from "@/auth";

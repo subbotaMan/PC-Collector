@@ -18,7 +18,7 @@ export function HeaderNav({ session }: Props) {
   const tabValue = getTabValue(pathname);
   const isLoginPage = pathname === "/login";
 
-  // На странице логина - пустота
+  // На странице логина - пустота.
   if (isLoginPage) return null;
 
   return (
@@ -27,6 +27,7 @@ export function HeaderNav({ session }: Props) {
       <div />
 
       <div className="flex justify-center">
+        {/* Если пользователь авторизован - показать навигацию в header. */}
         {session?.user && (
           <Tabs value={tabValue} className="w-fit">
             <TabsList>
