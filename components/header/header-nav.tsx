@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { LayoutList, Plus, Users } from "lucide-react";
-import { Btn } from "./button";
+import { Btn } from "../Btn&Link";
 
 type Props = {
   session: Session | null;

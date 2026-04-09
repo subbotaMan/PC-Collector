@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button";
+import { Btn } from "@/components/Btn&Link";
 import { TypographyH1 } from "@/components/ui/typography-h1";
-import Link from "next/link";
 import Image from "next/image";
 import bgPage from "../public/bg/bg-notebook.jpg";
 
@@ -27,9 +26,7 @@ export default function Home() {
         <main className="flex flex-col items-center py-32 px-16">
           <TypographyH1>Создай сборку своей мечты</TypographyH1>
           <br />
-          <Button>
-            <Link href="/dashboard">Создать</Link>
-          </Button>
+          <Btn title="Создать" href="/dashboard" />
         </main>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 
 type Props = {
   href: string;
   title: string;
-  variant:
+  variant?:
     | "link"
     | "default"
     | "outline"
