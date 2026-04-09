@@ -16,14 +16,15 @@ export const CurrentBuild = () => {
       <div className="flex-justify-between mb-8">
         <TypographyH1>Собери свою сборку</TypographyH1>
         <Button
-          className="mt-5 cursor-pointer transition-all duration-300 
-             shadow-md hover:shadow-xl hover:-translate-y-0.5 
-             hover:shadow-primary/30 active:translate-y-0"
+          size="lg"
+          className="hover-lift bg-blue-500 px-4"
           onClick={() => setSaveDialogOpen(true)}
         >
           Собрать
         </Button>
       </div>
+
+      <div className="min-w-0 overflow-x-auto"></div>
     </>
   );
 };

@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 type Props = {
   href: string;
   title: string;
+  className?: string;
   variant?:
     | "link"
     | "default"
@@ -27,9 +28,9 @@ type Props = {
     | undefined;
 };
 
-export const Btn = ({ href, variant, title, size }: Props) => {
+export const Btn = ({ href, variant, title, size, className }: Props) => {
   return (
-    <Button variant={variant} size={size}>
+    <Button className={className} variant={variant} size={size}>
       <Link href={href}>{title}</Link>
     </Button>
   );

@@ -26,7 +26,12 @@ export default function Home() {
         <main className="flex flex-col items-center py-32 px-16">
           <TypographyH1>Создай сборку своей мечты</TypographyH1>
           <br />
-          <Btn title="Создать" href="/dashboard" />
+          <Btn
+            className="hover-lift bg-blue-500 px-6 py-4"
+            title="Создать"
+            href="/dashboard"
+            size="lg"
+          />
         </main>
       </div>
     </div>
