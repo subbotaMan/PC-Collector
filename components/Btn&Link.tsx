@@ -2,9 +2,10 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 
 type Props = {
-  href: string;
   title: string;
+  href?: string;
   className?: string;
+  onClick?: () => void;
   variant?:
     | "link"
     | "default"
@@ -28,10 +29,31 @@ type Props = {
     | undefined;
 };
 
-export const Btn = ({ href, variant, title, size, className }: Props) => {
+export const Btn = ({
+  href,
+  variant,
+  title,
+  size,
+  className,
+  onClick,
+}: Props) => {
+  // Если есть ссылка, то передаю кнопку как Link.
+  if (href) {
+    return (
+      <Button className={className} variant={variant} size={size} asChild>
+        <Link href={href}>{title}</Link>
+      </Button>
+    );
+  }
+
   return (
-    <Button className={className} variant={variant} size={size}>
-      <Link href={href}>{title}</Link>
+    <Button
+      className={className}
+      variant={variant}
+      size={size}
+      onClick={onClick}
+    >
+      {title}
     </Button>
   );
 };

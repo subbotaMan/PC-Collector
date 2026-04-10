@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { TypographyH1 } from "@/components/ui/typography-h1";
 import { Component } from "@/lib/types";
 import { useState } from "react";
+import { TableParts } from "./table";
+import { componentCategories } from "@/lib/constants";
 
 export const CurrentBuild = () => {
   const [selectedByCategory, setSelectedByCategory] = useState<
@@ -24,7 +26,12 @@ export const CurrentBuild = () => {
         </Button>
       </div>
 
-      <div className="min-w-0 overflow-x-auto"></div>
+      <div className="min-w-0 overflow-x-auto">
+        {/* <TableParts
+          component={componentCategories} // Константа с массивом объектов в constants.ts.
+          onSelectedComponent={onSelectComponent}
+        /> */}
+      </div>
     </>
   );
 };
