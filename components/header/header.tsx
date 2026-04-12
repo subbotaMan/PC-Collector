@@ -4,7 +4,7 @@ import Link from "next/link";
 import { TypographyH3 } from "../ui/typography-h3";
 import { auth } from "@/auth";
 import { HeaderNav } from "./header-nav";
-import { PcCase, PcCaseIcon } from "lucide-react";
+import { PcCase } from "lucide-react";
 
 export async function Header() {
   const session = await auth();

@@ -3,15 +3,24 @@
 import { Button } from "@/components/ui/button";
 import { TypographyH1 } from "@/components/ui/typography-h1";
 import { Component } from "@/lib/types";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { TableParts } from "./table";
 import { componentCategories } from "@/lib/constants";
 
 export const CurrentBuild = () => {
-  const [selectedByCategory, setSelectedByCategory] = useState<
-    Record<string, Component>
+  const [selectedCategories, setSelectedCategories] = useState<
+    Record<string, Component | null>
   >({});
+
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
+
+  // Мемоизированная функция для объекта с выбранными категориями. ???
+  const onSelectComponent = useCallback(
+    (categoryId: string, component: Component | null) => {
+      setSelectedCategories((prev) => ({ ...prev, [categoryId]: component }));
+    },
+    []
+  );
 
   return (
     <>
@@ -27,10 +36,11 @@ export const CurrentBuild = () => {
       </div>
 
       <div className="min-w-0 overflow-x-auto">
-        {/* <TableParts
+        <TableParts
           component={componentCategories} // Константа с массивом объектов в constants.ts.
           onSelectedComponent={onSelectComponent}
-        /> */}
+          selectedByCategory={selectedCategories}
+        />
       </div>
     </>
   );

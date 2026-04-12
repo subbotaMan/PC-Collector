@@ -57,7 +57,7 @@ export function HeaderNav({ session }: Props) {
     );
   }
 
-  // Обычный вид для остальных страниц
+  // Обычный вид для остальных страниц.
   return (
     <div className="grid grid-cols-3 items-center gap-4">
       {/* Пустой див для сетки grid */}
