@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { AddComponentDialogContent } from "./add-component-dialog";
 
 // Сопоставление иконки(строка-ключ из моего типа ComponentCategory) категории с иконкой(React-компонент) из lucide-react.
 const iconMap: Record<ComponentCategory["icon"], React.ElementType> = {
@@ -126,11 +127,23 @@ export function TableParts({
                   }
                 >
                   <DialogTrigger asChild>
-                    <Button className="mr-" variant="outline" size="sm">
+                    <Button
+                      className="hover-lift p-4"
+                      variant="outline"
+                      size="sm"
+                    >
                       <Plus className="w-4 h-4 mr-1" />
                       {selected ? "Изменить" : "Добавить"}
                     </Button>
                   </DialogTrigger>
+                  <AddComponentDialogContent
+                    categoryId={category.id}
+                    categoryName={category.name}
+                    onSelect={(component) => {
+                      onSelectedComponent(category.id, component);
+                      setOpenCategoryId(null);
+                    }}
+                  />
                 </Dialog>
               </TableCell>
             </TableRow>
