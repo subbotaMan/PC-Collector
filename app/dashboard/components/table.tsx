@@ -1,6 +1,14 @@
 "use client";
 
-import { Table, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import type { Component, ComponentCategory } from "@/lib/types";
 import {
   Box,
@@ -11,8 +19,11 @@ import {
   Monitor,
   Server,
   Zap,
+  Minus,
+  Plus,
 } from "lucide-react";
-import { useState } from "react";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 // Сопоставление иконки(строка-ключ из моего типа ComponentCategory) категории с иконкой(React-компонент) из lucide-react.
 const iconMap: Record<ComponentCategory["icon"], React.ElementType> = {
@@ -33,6 +44,7 @@ type CategoryRow = {
   icon: string;
 };
 
+// Пропсы.
 type Props = {
   component: CategoryRow[];
   selectedByCategory: Record<string, Component | null>;
@@ -56,15 +68,75 @@ export function TableParts({
 
   return (
     <Table>
+      {/* <<<<<< Заголовок таблицы >>>>>> */}
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Компонент</TableHead>
-          <TableHead>Тип</TableHead>
+          <TableHead className="pl-7">Тип</TableHead>
           <TableHead>Модель</TableHead>
           <TableHead>Цена</TableHead>
-          <TableHead className="text-right">Действия</TableHead>
+          <TableHead className="text-right pr-10">Действия</TableHead>
         </TableRow>
       </TableHeader>
+
+      {/* <<<<<< Тело таблицы >>>>>> */}
+      <TableBody>
+        {component.map((category) => {
+          const Icon = iconMap[category.icon];
+          const selected = selectedByCategory[category.id];
+
+          return (
+            <TableRow key={category.id} className="my-2">
+              {/* <<<<<< Иконка >>>>> */}
+              <TableCell>
+                <span className="flex items-center" title={category.icon}>
+                  <Icon className="h-5 w-5 mr-1" />
+                </span>
+              </TableCell>
+
+              {/* <<<<<< Название >>>>>> */}
+              <TableCell className="font-bold pl-2">{category.name}</TableCell>
+
+              {/* <<<<<< Модель >>>>>> */}
+              <TableCell>
+                {selected?.name ?? (
+                  <span title="Не выбрано">
+                    <Minus />
+                  </span>
+                )}
+              </TableCell>
+
+              {/* <<<<<< Цена >>>>>> */}
+              <TableCell>
+                {selected?.price ?? (
+                  <span title="Цена отсутствует">
+                    <Minus />
+                  </span>
+                )}
+              </TableCell>
+
+              {/* <<<<<< Модальное окно с действием >>>>>> */}
+              <TableCell className="text-right">
+                <Dialog
+                  // Открываю, если локальный state соответствует выбранной категории.
+                  open={openCategoryId === category.id}
+                  // Устанавливаю локальный state конкретной категории если модалка открыта.
+                  onOpenChange={(open) =>
+                    setOpenCategoryId(open ? category.id : null)
+                  }
+                >
+                  <DialogTrigger asChild>
+                    <Button className="mr-" variant="outline" size="sm">
+                      <Plus className="w-4 h-4 mr-1" />
+                      {selected ? "Изменить" : "Добавить"}
+                    </Button>
+                  </DialogTrigger>
+                </Dialog>
+              </TableCell>
+            </TableRow>
+          );
+        })}
+      </TableBody>
     </Table>
   );
 }

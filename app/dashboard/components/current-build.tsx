@@ -8,13 +8,14 @@ import { TableParts } from "./table";
 import { componentCategories } from "@/lib/constants";
 
 export const CurrentBuild = () => {
+  // Хранилище. Ключ — ID категории, Значение — выбранный компонент (Component) или null.
   const [selectedCategories, setSelectedCategories] = useState<
     Record<string, Component | null>
   >({});
 
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
 
-  // Мемоизированная функция для объекта с выбранными категориями. ???
+  // Обработчик события выбора.
   const onSelectComponent = useCallback(
     (categoryId: string, component: Component | null) => {
       setSelectedCategories((prev) => ({ ...prev, [categoryId]: component }));
@@ -38,8 +39,8 @@ export const CurrentBuild = () => {
       <div className="min-w-0 overflow-x-auto">
         <TableParts
           component={componentCategories} // Константа с массивом объектов в constants.ts.
-          onSelectedComponent={onSelectComponent}
-          selectedByCategory={selectedCategories}
+          onSelectedComponent={onSelectComponent} // Обработчик события выбора.
+          selectedByCategory={selectedCategories} // Объект выбранных категорий.
         />
       </div>
     </>
