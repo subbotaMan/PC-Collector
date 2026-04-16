@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Plus } from "lucide-react";
 
 type Props = {
   name: string;
@@ -31,8 +30,12 @@ export function ComponentCard({ name, price, onClick }: Props) {
       </CardHeader>
 
       <CardFooter className="pt-0">
-        <Button>
-          <Plus className="h-3.5 w-3.5" />
+        <Button
+          variant="secondary"
+          size="sm"
+          className="w-full gap-1.5 cursor-pointer"
+          onClick={onClick}
+        >
           Добавить
         </Button>
       </CardFooter>

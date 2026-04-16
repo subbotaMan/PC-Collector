@@ -22,7 +22,7 @@ export type ComponentType =
   | "case"
   | "cooler";
 
-// Маппинг для отображения ячеек в таблице.
+// <<<<<< Объект маппер для отображения ячеек в таблице. >>>>>>
 // Если я отправляю запрос в базу данных.
 export const categoryIdToDbType: Record<string, ComponentType> = {
   // Record - объект словарь. Ключ - string. Значение -  одно из значений ComponentType.

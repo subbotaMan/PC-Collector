@@ -24,8 +24,12 @@ export const CurrentBuild = () => {
   );
 
   return (
-    <>
-      <div className="flex-justify-between mb-8">
+    <div
+      className="p-6 rounded-xl bg-white/5 backdrop-blur-md 
+     shadow-2xl
+     transition-all duration-500"
+    >
+      <div className="flex justify-between mb-8">
         <TypographyH1>Собери свою сборку</TypographyH1>
         <Button
           size="lg"
@@ -43,6 +47,6 @@ export const CurrentBuild = () => {
           selectedByCategory={selectedCategories} // Объект выбранных категорий.
         />
       </div>
-    </>
+    </div>
   );
 };
