@@ -5,6 +5,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -25,6 +26,7 @@ import {
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { AddComponentDialogContent } from "./add-component-dialog";
+import { TypographyH3 } from "@/components/ui/typography-h3";
 
 // Сопоставление иконки(строка-ключ из моего типа ComponentCategory) категории с иконкой(React-компонент) из lucide-react.
 const iconMap: Record<ComponentCategory["icon"], React.ElementType> = {
@@ -73,10 +75,10 @@ export function TableParts({
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Компонент</TableHead>
-          <TableHead className="pl-7">Тип</TableHead>
-          <TableHead>Модель</TableHead>
-          <TableHead>Цена</TableHead>
-          <TableHead className="text-right pr-10">Действия</TableHead>
+          <TableHead className="text-center">Тип</TableHead>
+          <TableHead className="text-center">Модель</TableHead>
+          <TableHead className="text-center">Цена</TableHead>
+          <TableHead className="text-center">Действия</TableHead>
         </TableRow>
       </TableHeader>
 
@@ -87,7 +89,7 @@ export function TableParts({
           const selected = selectedByCategory[category.id];
 
           return (
-            <TableRow key={category.id} className="my-2">
+            <TableRow key={category.id} className="text-center">
               {/* <<<<<< Иконка >>>>> */}
               <TableCell>
                 <span className="flex items-center" title={category.icon}>
@@ -96,28 +98,36 @@ export function TableParts({
               </TableCell>
 
               {/* <<<<<< Название >>>>>> */}
-              <TableCell className="font-bold pl-2">{category.name}</TableCell>
+              <TableCell className="font-bold text-center">
+                {category.name}
+              </TableCell>
 
               {/* <<<<<< Модель >>>>>> */}
-              <TableCell>
+              <TableCell className="text-center">
                 {selected?.name ?? (
-                  <span title="Не выбрано">
+                  <span
+                    title="Не выбрано"
+                    className="flex justify-center items-center"
+                  >
                     <Minus />
                   </span>
                 )}
               </TableCell>
 
               {/* <<<<<< Цена >>>>>> */}
-              <TableCell>
+              <TableCell className="text-center">
                 {selected?.price ?? (
-                  <span title="Цена отсутствует">
+                  <span
+                    title="Цена отсутствует"
+                    className="flex justify-center items-center"
+                  >
                     <Minus />
                   </span>
                 )}
               </TableCell>
 
               {/* <<<<<< Модальное окно с действием >>>>>> */}
-              <TableCell className="text-right">
+              <TableCell className="text-center">
                 <Dialog
                   // Открываю, если локальный state соответствует выбранной категории.
                   open={openCategoryId === category.id}
@@ -136,6 +146,7 @@ export function TableParts({
                       {selected ? "Изменить" : "Добавить"}
                     </Button>
                   </DialogTrigger>
+
                   <AddComponentDialogContent
                     categoryId={category.id}
                     categoryName={category.name}
@@ -150,6 +161,21 @@ export function TableParts({
           );
         })}
       </TableBody>
+
+      {/* <<<<<< Подвал таблицы с ценой сборки >>>>>> */}
+      {totalPrice > 0 && (
+        <TableFooter>
+          <TableRow>
+            {/* Растягиваю ячейку на 5 столбцов */}
+            <TableCell colSpan={5}>
+              <TypographyH3>Цена сборки:</TypographyH3>
+              <p className="font-extrabold text-4xl text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">
+                {totalPrice}
+              </p>
+            </TableCell>
+          </TableRow>
+        </TableFooter>
+      )}
     </Table>
   );
 }

@@ -3,6 +3,12 @@
 import { prisma } from "@/lib/db";
 import { categoryIdToDbType, Component } from "@/lib/types";
 
+// Тип для initialState в компоненте save-build-dialog
+export type SaveBuildFromState = {
+  status: "idle" | "seccess" | "error";
+  message?: string;
+};
+
 export async function getComponentsByCategory(
   categoryId: string
 ): Promise<Component[]> {

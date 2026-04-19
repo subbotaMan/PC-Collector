@@ -23,6 +23,7 @@ export function AddComponentDialogContent({
   categoryName,
   onSelect,
 }: Props) {
+  // Local State
   const [components, setComponents] = useState<Component[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -37,7 +38,7 @@ export function AddComponentDialogContent({
       }
     }, 20000);
 
-    // Запрос данных.
+    // Запрос данных с помощью action.
     getComponentsByCategory(categoryId)
       .then((data) => {
         clearTimeout(timeoutId);
@@ -82,7 +83,8 @@ export function AddComponentDialogContent({
   };
 
   return (
-    <DialogContent className="flex flex-col !max-w-6xl w-[32vw] max-h-[95vh] overflow-hidden">
+    // w-[90vw] - мобильная ширина. md:w-[60vw] - ширина десктопов.
+    <DialogContent className="flex flex-col !max-w-6xl w-[90vw] md:w-[60vw] max-h-[95vh] overflow-hidden">
       <DialogHeader>
         <DialogTitle>Добавить компонент - {categoryName}</DialogTitle>
         {/* Описание для скринридера */}
