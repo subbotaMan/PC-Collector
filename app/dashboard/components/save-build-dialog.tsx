@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  selectedByCategory: Record<string, Component | null>;
+  selectedCategory: Record<string, Component | null>;
   defaultName?: string;
   redirectPath?: string;
 };
@@ -30,7 +30,7 @@ const initialState: SaveBuildFromState = { status: "idle" };
 export function SaveBuildDialog({
   open,
   onOpenChange,
-  selectedByCategory,
+  selectedCategory,
   defaultName,
   redirectPath,
 }: Props) {
@@ -40,10 +40,10 @@ export function SaveBuildDialog({
 
   const componentIds = useMemo(
     () =>
-      Object.values(selectedByCategory)
+      Object.values(selectedCategory)
         .filter((componet): componet is Component => componet !== null)
         .map((component) => component.id),
-    [selectedByCategory]
+    [selectedCategory]
   );
 
   useEffect(() => {}, [onOpenChange, redirectPath, router]);
@@ -80,7 +80,13 @@ export function SaveBuildDialog({
             value={componentIds.join(",")}
           />
           <DialogFooter>
-            <Button type="submit" disabled={pending || componentIds.length < 1}>
+            <Button
+              type="submit"
+              disabled={pending || componentIds.length < 1}
+              className={
+                !pending && componentIds.length > 0 ? "cursor-pointer" : ""
+              }
+            >
               {pending ? <Preloader /> : "Сохранить"}
             </Button>
           </DialogFooter>

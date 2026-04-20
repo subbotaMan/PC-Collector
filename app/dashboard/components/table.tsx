@@ -50,7 +50,7 @@ type CategoryRow = {
 // Пропсы.
 type Props = {
   component: CategoryRow[];
-  selectedByCategory: Record<string, Component | null>;
+  selectedCategory: Record<string, Component | null>;
   onSelectedComponent: (
     categoryId: string,
     component: Component | null
@@ -59,12 +59,12 @@ type Props = {
 
 export function TableParts({
   component,
-  selectedByCategory,
+  selectedCategory,
   onSelectedComponent,
 }: Props) {
   const [openCategoryId, setOpenCategoryId] = useState<string | null>(null);
 
-  const totalPrice = Object.values(selectedByCategory).reduce(
+  const totalPrice = Object.values(selectedCategory).reduce(
     (acc, currentItem) => acc + (currentItem?.price ?? 0),
     0
   );
@@ -86,7 +86,7 @@ export function TableParts({
       <TableBody>
         {component.map((category) => {
           const Icon = iconMap[category.icon];
-          const selected = selectedByCategory[category.id];
+          const selected = selectedCategory[category.id];
 
           return (
             <TableRow key={category.id} className="text-center">
@@ -136,6 +136,7 @@ export function TableParts({
                     setOpenCategoryId(open ? category.id : null)
                   }
                 >
+                  {/* <<<<<< Кнопка "Изменить" - "Добавить" >>>>>> */}
                   <DialogTrigger asChild>
                     <Button
                       className="hover-lift p-4"
@@ -147,6 +148,7 @@ export function TableParts({
                     </Button>
                   </DialogTrigger>
 
+                  {/* <<<<<< Модальное окно со списком доступных компонентов сборки >>>>>> */}
                   <AddComponentDialogContent
                     categoryId={category.id}
                     categoryName={category.name}

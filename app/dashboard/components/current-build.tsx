@@ -6,6 +6,7 @@ import { Component } from "@/lib/types";
 import { useCallback, useState } from "react";
 import { TableParts } from "./table";
 import { componentCategories } from "@/lib/constants";
+import { SaveBuildDialog } from "./save-build-dialog";
 
 export const CurrentBuild = () => {
   // Хранилище. Ключ — ID категории, Значение — выбранный компонент (Component) или null.
@@ -41,10 +42,18 @@ export const CurrentBuild = () => {
       </div>
 
       <div className="min-w-0 overflow-x-auto">
+        {/* Наполнение таблицы данными для сборки */}
         <TableParts
           component={componentCategories} // Константа с массивом объектов в constants.ts.
           onSelectedComponent={onSelectComponent} // Обработчик события выбора.
-          selectedByCategory={selectedCategories} // Объект выбранных категорий.
+          selectedCategory={selectedCategories} // Объект выбранных категорий.
+        />
+
+        {/* Модальное окно для сохранения сборки */}
+        <SaveBuildDialog
+          open={saveDialogOpen} // Открыто модальное окно для сохранения сборки?
+          onOpenChange={setSaveDialogOpen} // Открыть/Закрыть модальное окно для сохранения сборки?
+          selectedCategory={selectedCategories} // Объект выбранных категорий для сохранения в DB
         />
       </div>
     </div>

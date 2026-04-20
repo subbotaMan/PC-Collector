@@ -9,6 +9,7 @@ export type SaveBuildFromState = {
   message?: string;
 };
 
+// <<<<<< Action для поиска компонентов сборки ПК в DB >>>>>>
 export async function getComponentsByCategory(
   categoryId: string
 ): Promise<Component[]> {
