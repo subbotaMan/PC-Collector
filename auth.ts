@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
 
-// <<<<<<<<<Настройка Next Auth>>>>>>>>>
+// <<<<<<<<< Настройка Next Auth >>>>>>>>>
 export const { auth, signIn, signOut, handlers } = NextAuth({
   trustHost: true,
   secret: process.env.NEXTAUTH_SECRET,
@@ -68,7 +68,11 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   ],
 
   // Когда пользователь вошел, даю ему JWT токен. С этим пропуском он может ходить по сайту, не вводя пароль каждый раз.
-  session: { strategy: "jwt" },
+  session: {
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60, // Жизнь токена сутки
+    updateAge: 60 * 60, // Обновляю токен каждый час, если пользователь активен
+  },
 
   // Если пользователь не залогинен и пытается зайти на защищенную страницу - отправляю его на страницу /login.
   pages: {

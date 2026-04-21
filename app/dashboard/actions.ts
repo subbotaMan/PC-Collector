@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@/auth";
 import { prisma } from "@/lib/db";
 import { categoryIdToDbType, Component } from "@/lib/types";
 
@@ -9,11 +10,31 @@ export type SaveBuildFromState = {
   message?: string;
 };
 
-// <<<<<< Action для поиска компонентов сборки ПК в DB >>>>>>
+export async function saveBuildAction(
+  _prevState: SaveBuildFromState,
+  formData: FormData
+) {
+  const name = String(formData.get("name") ?? "").trim();
+  const componentIds = String(formData.get("componentIds"))
+    .split(",")
+    .map((id) => id.trim())
+    .filter(Boolean);
+
+    const result = await saveBuild(name, componentIds)
+}
+
+export async function saveBuild(
+  name: string
+  componentIds: string[]
+): Promise<{success: true; buildId: string} | {success: false; error: string}> {
+  const session = auth()
+}
+
+// <<<<<< Action для получения компонентов сборки ПК из DB по категории >>>>>>
 export async function getComponentsByCategory(
   categoryId: string
 ): Promise<Component[]> {
-  // Нахожу тип в DB по callback.
+  // Нахожу тип категории в DB по callback.
   const dbType = categoryIdToDbType[categoryId];
 
   // Guard expression.

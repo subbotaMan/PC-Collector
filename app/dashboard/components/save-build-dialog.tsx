@@ -38,17 +38,18 @@ export function SaveBuildDialog({
   const refForm = useRef<HTMLFormElement>(null);
   const { pending } = useFormStatus();
 
+  // <<<<<< ID's выбранных компонентов для сохранения их в конкретной сборке >>>>>>
   const componentIds = useMemo(
     () =>
-      Object.values(selectedCategory)
-        .filter((componet): componet is Component => componet !== null)
-        .map((component) => component.id),
+      Object.values(selectedCategory) // Беру все выбранные категории (cpu, gpu...)
+        .filter((componet): componet is Component => componet !== null) // Убираю пустые(не выбранные) слоты
+        .map((component) => component.id), // Забираю id
     [selectedCategory]
   );
 
   useEffect(() => {}, [onOpenChange, redirectPath, router]);
 
-  // Handler
+  // Handler для сброса формы при закрытии окна сохранения.
   const handleOpenChange = (nextOpen: boolean) => {
     // Сброс формы до исходного состояния при закрытии модального окна.
     if (!nextOpen) refForm.current?.reset();
@@ -73,19 +74,19 @@ export function SaveBuildDialog({
             required
           />
 
-          {/* Скрытое поле для передачи данных на backend */}
+          {/* Скрытое поле для передачи данных на backend при сохранении сборки */}
           <input
             type="hidden"
             name="componentIds"
             value={componentIds.join(",")}
           />
+
+          {/* Кнопка сохранить */}
           <DialogFooter>
             <Button
               type="submit"
               disabled={pending || componentIds.length < 1}
-              className={
-                !pending && componentIds.length > 0 ? "cursor-pointer" : ""
-              }
+              className="cursor-pointer"
             >
               {pending ? <Preloader /> : "Сохранить"}
             </Button>
