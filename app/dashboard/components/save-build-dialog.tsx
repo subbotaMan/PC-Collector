@@ -1,9 +1,9 @@
 "use client";
 
 import { Component } from "@/lib/types";
-import { SaveBuildFromState } from "../actions";
+import { saveBuildAction, SaveBuildFromState } from "../actions";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useRef } from "react";
+import { useActionState, useEffect, useMemo, useRef } from "react";
 import {
   Dialog,
   DialogContent,
@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { useFormStatus } from "react-dom";
 import { Preloader } from "@/lib/preloader";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 type Props = {
   open: boolean;
@@ -37,6 +38,8 @@ export function SaveBuildDialog({
   const router = useRouter();
   const refForm = useRef<HTMLFormElement>(null);
   const { pending } = useFormStatus();
+  // Action, который будет вызываться при сабмите формы.
+  const [state, formAction] = useActionState(saveBuildAction, initialState);
 
   // <<<<<< ID's выбранных компонентов для сохранения их в конкретной сборке >>>>>>
   const componentIds = useMemo(
@@ -47,7 +50,25 @@ export function SaveBuildDialog({
     [selectedCategory]
   );
 
-  useEffect(() => {}, [onOpenChange, redirectPath, router]);
+  useEffect(() => {
+    // <<<<<< При успешном создании билда >>>>>>
+    if (state.status === "success") {
+      // Показываю тостер с сообщением.
+      toast.success("Сборка сохранена");
+      // Сбрасываю форму.
+      refForm.current?.reset();
+      // Закрываю модальное окно.
+      onOpenChange(false);
+
+      if (redirectPath) {
+        // Делаю редирект на страницу созданного билда.
+        router.push(redirectPath);
+      } else {
+        // Или обновляю страницу.
+        router.refresh();
+      }
+    }
+  }, [onOpenChange, redirectPath, router, state.status]);
 
   // Handler для сброса формы при закрытии окна сохранения.
   const handleOpenChange = (nextOpen: boolean) => {
@@ -65,7 +86,7 @@ export function SaveBuildDialog({
           <DialogDescription>Введите название сборки</DialogDescription>
         </DialogHeader>
 
-        <form ref={refForm} className="space-y-4">
+        <form ref={refForm} action={formAction} className="space-y-4">
           {/* UI input */}
           <Input
             name="name"
