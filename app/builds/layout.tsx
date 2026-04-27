@@ -5,5 +5,5 @@ type Props = {
 };
 
 export default function BuildsLayout({ children }: Props) {
-  <div className="container mx-auto max-w-5xl">{children}</div>;
+  return <div className="container mx-auto max-w-5xl">{children}</div>;
 }
