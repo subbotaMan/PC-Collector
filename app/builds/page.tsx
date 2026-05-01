@@ -8,6 +8,16 @@ import { BuildCard } from "./components/builds-card";
 
 import Image from "next/image";
 import bgPage from "../../public/bg/builds-bg.jpg";
+import { DeleteBuildButton } from "./components/delete-build-button";
+import { deleteBuildAction, setBuildPublicAction } from "./actions/actions";
+import { Button } from "@/components/ui/button";
+import {
+  Share2,
+  Check,
+  CheckCircle2,
+  CheckSquare,
+  BadgeCheck,
+} from "lucide-react";
 
 export default async function MyBuilds() {
   const session = await auth();
@@ -28,7 +38,36 @@ export default async function MyBuilds() {
         {builds.length > 0 ? (
           builds.map((build) => (
             <BuildCard key={build.id} build={build}>
-              {/* children */}
+              {/* КНОПКА УДАЛЕНИЯ БИЛДА */}
+              <DeleteBuildButton
+                buildId={build.id}
+                deleteAction={deleteBuildAction}
+              />
+
+              {/* ФОРМА УСТАНОВКИ ПУБЛИЧНЫХ БИЛДОВ */}
+              <form action={setBuildPublicAction} className="contents">
+                {/* Скрытые input's для отправки данных на сервер. */}
+                <input type="hidden" name="buildId" value={build.id} />
+                <input
+                  type="hidden"
+                  name="isPublic"
+                  value={build.isPublic ? "false" : "true"}
+                />
+                {/* КНОПКА УСТАНОВКИ ПУБЛИЧНОСТИ БИЛДА */}
+                <Button
+                  type="submit"
+                  variant="ghost"
+                  size="icon-lg"
+                  className="cursor-pointer"
+                  title="Сделать сбоку публичной?"
+                >
+                  {build.isPublic ? (
+                    <BadgeCheck className="text-green-500" />
+                  ) : (
+                    <Share2 />
+                  )}
+                </Button>
+              </form>
             </BuildCard>
           ))
         ) : (
