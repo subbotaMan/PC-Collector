@@ -41,7 +41,9 @@ export function BuildCard({ build, children }: Props) {
           {/* Левая часть: название и автор */}
           <div className="min-w-0 flex-1">
             <CardTitle className="mb-1">
-              <TypographyH3>{build.name}</TypographyH3>
+              <TypographyH3 className="break-words hyphens-auto">
+                {build.name}
+              </TypographyH3>
             </CardTitle>
             <p
               className="text-xs text-muted-foreground truncate"

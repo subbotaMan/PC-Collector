@@ -90,6 +90,7 @@ export function SaveBuildDialog({
           {/* UI input */}
           <Input
             name="name"
+            maxLength={20}
             placeholder="Название сборки"
             defaultValue={defaultName}
             required

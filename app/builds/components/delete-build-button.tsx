@@ -4,7 +4,6 @@ import { useTransition, useState } from "react";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { Preloader } from "@/lib/preloader";
 
 type Props = {
   buildId: string;
@@ -14,8 +13,6 @@ type Props = {
 export function DeleteBuildButton({ buildId, deleteAction }: Props) {
   const [isPending, startTransition] = useTransition();
   const [showConfirm, setShowConfirm] = useState(false);
-
-  //   isPending && <Preloader />;
 
   const handleDelete = () => {
     // Пустой объект FormData.
@@ -33,7 +30,7 @@ export function DeleteBuildButton({ buildId, deleteAction }: Props) {
         variant="destructive"
         disabled={isPending}
         onClick={() => setShowConfirm(true)}
-        className="cursor-pointer !w-auto !px-3"
+        className="cursor-pointer !w-auto !px-5"
       >
         {isPending ? (
           <>

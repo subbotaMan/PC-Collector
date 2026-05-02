@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { TypographyH3 } from "@/components/ui/typography-h3";
+import { TypographyH1 } from "@/components/ui/typography-h1";
 import { getMyBuilds } from "@/lib/getMyBuilds";
 import { redirect } from "next/navigation";
 import { BuildCard } from "./components/builds-card";
@@ -11,13 +11,7 @@ import bgPage from "../../public/bg/builds-bg.jpg";
 import { DeleteBuildButton } from "./components/delete-build-button";
 import { deleteBuildAction, setBuildPublicAction } from "./actions/actions";
 import { Button } from "@/components/ui/button";
-import {
-  Share2,
-  Check,
-  CheckCircle2,
-  CheckSquare,
-  BadgeCheck,
-} from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 
 export default async function MyBuilds() {
   const session = await auth();
@@ -31,7 +25,7 @@ export default async function MyBuilds() {
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="text-center mb-8">
-        <TypographyH3>Мои сборки</TypographyH3>
+        <TypographyH1>Мои сборки</TypographyH1>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
@@ -59,12 +53,16 @@ export default async function MyBuilds() {
                   variant="ghost"
                   size="icon-lg"
                   className="cursor-pointer"
-                  title="Сделать сбоку публичной?"
+                  title={
+                    build.isPublic
+                      ? "Сделать сборку анонимной?"
+                      : "Сделать сбоку публичной?"
+                  }
                 >
                   {build.isPublic ? (
-                    <BadgeCheck className="text-green-500" />
+                    <Eye className="text-green-500 !h-6 !w-6" />
                   ) : (
-                    <Share2 />
+                    <EyeOff className="!h-6 !w-6" />
                   )}
                 </Button>
               </form>
