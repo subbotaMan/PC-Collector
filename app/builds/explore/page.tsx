@@ -3,7 +3,9 @@ import { TypographyH1 } from "@/components/ui/typography-h1";
 import { getPublicBuilds } from "@/lib/getMyBuilds";
 import { notFound } from "next/navigation";
 import { BuildCard } from "../components/builds-card";
-import notFoundImage from "../../../public/notFound.svg";
+import { toggleLikeAction } from "../actions/actions";
+import { Button } from "@/components/ui/button";
+import { ThumbsUp } from "lucide-react";
 
 export default async function ExplorePage() {
   const session = await auth();
@@ -26,10 +28,33 @@ export default async function ExplorePage() {
             const isLiked =
               Array.isArray(build.likes) && build.likes.length > 0;
 
-            // <<<<<< КАРТОЧКИ ПУБЛИЧНЫХ СБОРОК >>>>>>
+            // <<<<<< КАРТОЧКИ ВСЕХ ПУБЛИЧНЫХ СБОРОК >>>>>>
             return (
               <BuildCard build={build} key={build.id}>
-                ...
+                <div className="flex flex-wrap gap-2">
+                  <form action={toggleLikeAction} className="contents">
+                    {/* СКРЫТЫЙ INPUT */}
+                    <input type="hidden" name="buildId" value={build.id} />
+
+                    {/* КНОПКА LIKE */}
+                    <Button
+                      className="cursor-pointer group/like"
+                      type="submit"
+                      variant={isLiked ? "outline" : "secondary"}
+                      size="lg"
+                    >
+                      {/* ИКОНКА LIKE */}
+                      <ThumbsUp
+                        className={`!h-5 !w-5 mr-1 transition-transform duration-300 ease-in-out group-hover/like:animate-pulse group-hover/like:rotate-12 ${
+                          isLiked ? "fill-current" : ""
+                        }`}
+                      />
+
+                      {/* СЧЁТЧИК ЛАЙКОВ */}
+                      {build._count.likes}
+                    </Button>
+                  </form>
+                </div>
               </BuildCard>
             );
           })
