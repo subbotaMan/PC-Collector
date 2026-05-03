@@ -60,8 +60,8 @@ export function BuildCard({ build, children }: Props) {
               variant="outline"
               className="transition-all duration-200 hover:scale-110 hover:bg-primary hover:text-primary-foreground"
             >
-              <Link href={`builds/${build.id}`}>
-                <Pencil className="h-4 w-4" />
+              <Link href={`builds/${build.id}`} title="Редактировать сборку">
+                <Pencil className="!h-5 !w-5" />
               </Link>
             </Button>
           </div>
