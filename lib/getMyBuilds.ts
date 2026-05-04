@@ -28,27 +28,19 @@ export async function getMyBuilds(userId: string) {
 // <<<<<< Получаю все публичные сборки из базы данных >>>>>>
 export function getPublicBuilds(userId: string) {
   return prisma.build.findMany({
-    // Ищу сборки по isPublic.
     where: { isPublic: true },
-    // Сортировка - сначала новые сборки.
     orderBy: { createdAt: "desc" },
-    // Подгрузка связанных данных из других таблиц в DB.
     include: {
-      // Данные пользователя.
       user: { select: { email: true, name: true } },
-      // Компоненты сборки.
       components: {
         include: {
-          // Загружаю сам компонент.
           component: {
-            // И забираю из него только нужные поля.
             select: { name: true },
           },
         },
       },
       // Виртуальное поле созданное prisma для подсчёта записей в таблице likes, связанных с этой сборкой.
       _count: { select: { likes: true } },
-      // Нахожу поставленные лайки.
       likes: { where: { userId }, select: { id: true } },
     },
   });
@@ -62,6 +54,23 @@ export async function getBuildToEdit(buildId: string) {
       components: {
         include: { component: true },
       },
+    },
+  });
+}
+
+// <<<<<< Получаю публичные сборки с бОльшим количеством лайков >>>>>>
+export async function getPopularBuilds(limit = 3) {
+  return await prisma.build.findMany({
+    where: {
+      isPublic: true,
+      // У сборки есть лайки.
+      likes: { some: {} },
+    },
+    // Сортировка по лайкам.
+    orderBy: { likes: { _count: "desc" } },
+    take: limit,
+    include: {
+      _count: { select: { likes: true } },
     },
   });
 }

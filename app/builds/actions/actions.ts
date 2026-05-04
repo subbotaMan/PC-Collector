@@ -45,7 +45,7 @@ export async function deleteBuildAction(formData: FormData) {
   revalidatePath("/builds");
 }
 
-//
+// <<<<<< ДОБАВИТЬ/УДАЛИТЬ ЛАЙК >>>>>>
 export async function toggleLikeAction(formData: FormData) {
   const session = await auth();
 
@@ -77,7 +77,7 @@ export async function toggleLikeAction(formData: FormData) {
   if (existing) {
     await prisma.like.delete({
       where: {
-        id: existing.id,
+        userId_buildId: { userId: session.user.id, buildId },
       },
     });
   } else {

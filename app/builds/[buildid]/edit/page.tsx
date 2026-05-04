@@ -8,10 +8,12 @@ type Props = {
 };
 
 export default async function EditBuildPage({ params }: Props) {
+  debugger;
   const session = await auth();
   if (!session?.user) redirect("/login");
 
   const { buildId } = await params;
+
   // Получаю build из DB для редактирования по buildId из params.
   const build = await getBuildToEdit(buildId);
   if (!build) return;
