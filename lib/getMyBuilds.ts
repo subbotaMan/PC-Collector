@@ -56,7 +56,7 @@ export function getPublicBuilds(userId: string) {
 
 // <<<<<< Получаю редактируемый build >>>>>>
 export async function getBuildToEdit(buildId: string) {
-  return prisma.build.findFirst({
+  return prisma.build.findUnique({
     where: { id: buildId },
     include: {
       components: {

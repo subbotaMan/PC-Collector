@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { getBuildToEdit } from "@/lib/getMyBuilds";
 import { redirect } from "next/navigation";
+import { EditBuildForm } from "./components/edit-build-form";
 
 type Props = {
   params: Promise<{ buildId: string }>;
@@ -11,7 +12,7 @@ export default async function EditBuildPage({ params }: Props) {
   if (!session?.user) redirect("/login");
 
   const { buildId } = await params;
-  // Получаю build для редактирования по buildId из params.
+  // Получаю build из DB для редактирования по buildId из params.
   const build = await getBuildToEdit(buildId);
   if (!build) return;
 
@@ -22,4 +23,10 @@ export default async function EditBuildPage({ params }: Props) {
     type: bc.component.type,
     socket: bc.component.socket,
   }));
+
+  return (
+    <div className="py-6">
+      <EditBuildForm buildComponents={buildComponents} buildName={build.name} />
+    </div>
+  );
 }
