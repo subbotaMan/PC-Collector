@@ -32,7 +32,7 @@ export async function PopularBuildCard() {
             className="flex flex-col gap-1 rounded-lg border bg-muted/30 px-3 py-2"
           >
             <div className="flex items-start justify-between gap-2">
-              <p className="font-medium text-sm leading-tight min-w-0 text-[#FFB347]">
+              <p className="font-medium text-sm leading-tight min-w-0 ">
                 {build.name}
               </p>
               <Button
@@ -43,7 +43,7 @@ export async function PopularBuildCard() {
               >
                 <Link
                   href={`/builds/${build.id}/edit`}
-                  title="Редактировать сборку сборку"
+                  title="Редактировать сборку"
                 >
                   <Pencil className="!h-5 !w-5" />
                 </Link>
