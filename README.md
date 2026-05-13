@@ -7,11 +7,16 @@
 - Установить зависимости.
 
 - Создать файл .env в корне проекта и добавить в него следующие переменные окружения:
-  DATABASE_URL="postgresql://postgres:postgres@localhost:5432/pcbuilder"
-  NEXTAUTH_SECRET='your_pass'
-  POSTGRES_USER="postgres"
-  POSTGRES_PASSWORD="postgres"
-  POSTGRES_DB="pcbuilder"
+
+  - DATABASE_URL="postgresql://postgres:postgres@localhost:5432/pcbuilder"
+
+  - NEXTAUTH_SECRET='your_pass'
+
+  - POSTGRES_USER="postgres"
+
+  - POSTGRES_PASSWORD="postgres"
+
+  - POSTGRES_DB="pcbuilder"
 
 - Запустить базу данных с помощью Docker Compose:
   docker compose up
