@@ -27,8 +27,10 @@
 
 - Запустить проект.
 
-<!-- <h1>Технологии:</h1>
-- Next.JS.
+<hr/>
+
+<h1>🛠️ Технологический стек:</h1>
+- Next.JS. <img src="https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white" />
 - Next Auth.
 - TypeScript.
 - ORM - Prisma.
@@ -37,20 +39,7 @@
 - Библиотека UI - Shadcn.
 - Стили - Tailwind CSS.
 - Иконки - Lucide-react.
-- Хэширование данных - Bcryptjs. -->
-
-🛠️ Технологический стек
-Категория Технология
-Фреймворк: https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white
-Язык: https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white
-ORM: https://img.shields.io/badge/Prisma-2D3748?style=flat&logo=prisma&logoColor=white
-База данных: https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white
-Контейнеризация: https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white
-Стилизация: https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat&logo=tailwind-css&logoColor=white
-Аутентификация: Next Auth
-UI компоненты: Shadcn
-Иконки: Lucide-react
-Хеширование: Bcryptjs
+- Хэширование данных - Bcryptjs.
 
 <h1>Функционал:</h1>
 - 🔐 Аутентификация — регистрация и вход в систему
@@ -60,13 +49,18 @@ UI компоненты: Shadcn
 - 🏆 Популярные сборки. 
 - ✏️ Редактирование сборки.
 
-🗂️ Структура данных:
-Все компоненты для сборки ПК находятся в prisma/seed.ts. Вы можете легко актуализировать или дополнить список комплектующих:
-
+<h1>🗂️ Структура данных:</h1>
+<p>Все компоненты для сборки ПК находятся в prisma/seed.ts. Вы можете легко актуализировать или дополнить список комплектующих:</p>
 🧠 Процессоры
+
 🎮 Видеокарты
+
 💾 Оперативная память
+
 📦 Материнские платы
+
 ⚡ Блоки питания
+
 💿 Накопители
+
 🏠 Корпуса
